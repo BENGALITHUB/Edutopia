@@ -50,6 +50,10 @@
   0% { transform: translate3d(0, 0, 0); }
   100% { transform: translate3d(0, -50%, 0); }
 }
+@keyframes marquee-roll-up {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(0, calc(-100% - 0.75rem), 0); }
+}
 @keyframes floaty {
   0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
   50% { transform: translate3d(0, -14px, 0) rotate(3deg); }
@@ -309,6 +313,20 @@
   }
   .dot-typing span:nth-child(3) {
     animation-delay: 0.3s;
+  }
+
+  /* ── Infinite Vertical Feedback Card Roll (Zero Stutter / Infinite Loop) ── */
+  .marquee-track {
+    position: relative;
+    overflow: hidden;
+  }
+  .marquee-track:hover .marquee-group,
+  .marquee-track:focus-within .marquee-group {
+    animation-play-state: paused;
+  }
+  .marquee-group {
+    animation: marquee-roll-up 24s linear infinite;
+    will-change: transform;
   }
 }
 

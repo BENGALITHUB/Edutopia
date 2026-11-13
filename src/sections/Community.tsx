@@ -113,9 +113,6 @@ const TESTIMONIALS: Testimonial[] = [
   },
 ]
 
-// Duplicate array for seamless infinite vertical looping
-const STREAM_REVIEWS = [...TESTIMONIALS, ...TESTIMONIALS]
-
 const TONE_BADGES = {
   emerald: 'bg-mint text-emerald border-emerald/25',
   tangerine: 'bg-tangerine/15 text-charcoal border-tangerine/30',
@@ -183,7 +180,7 @@ export function Community() {
         </div>
 
         {/* Bento Grid: Left photo composition & Right green column with multiple floating cards */}
-        <div className="mt-8 grid gap-4 sm:gap-5 lg:grid-cols-12 items-stretch">
+        <div className="mt-8 grid gap-4 sm:gap-5 lg:grid-cols-12 items-start">
           {/* ──────────────── Left Main Column (Photos) ──────────────── */}
           <div
             className={`lg:col-span-7 flex flex-col gap-4 sm:gap-5 ${
@@ -193,7 +190,7 @@ export function Community() {
             {/* Top Large Photo: Collaborative Learning Space */}
             <Tilt
               max={2}
-              className="group relative overflow-hidden rounded-[28px] sm:rounded-[32px] border border-warm-grey bg-white shadow-[var(--shadow-card)] min-h-[260px] sm:min-h-[360px] lg:h-[380px] flex-1"
+              className="group relative overflow-hidden rounded-[28px] sm:rounded-[32px] border border-warm-grey bg-white shadow-[var(--shadow-card)] h-[280px] sm:h-[340px] lg:h-[390px] shrink-0"
             >
               <img
                 src={heroStudentsImg}
@@ -221,11 +218,11 @@ export function Community() {
             </Tilt>
 
             {/* Bottom Row: 2 Side-by-Side Photos */}
-            <div className="grid gap-4 sm:gap-5 sm:grid-cols-2">
+            <div className="grid gap-4 sm:gap-5 sm:grid-cols-2 shrink-0">
               {/* Bottom Left Photo: Mentor-Guided Code Reviews */}
               <Tilt
                 max={3}
-                className="group relative overflow-hidden rounded-[26px] sm:rounded-[28px] border border-warm-grey bg-white shadow-[var(--shadow-card)] h-[200px] sm:h-[220px]"
+                className="group relative overflow-hidden rounded-[26px] sm:rounded-[28px] border border-warm-grey bg-white shadow-[var(--shadow-card)] h-[180px] sm:h-[200px] lg:h-[210px]"
               >
                 <img
                   src={mentorImg}
@@ -255,7 +252,7 @@ export function Community() {
               {/* Bottom Right Photo: Capstone Design Sprints */}
               <Tilt
                 max={3}
-                className="group relative overflow-hidden rounded-[26px] sm:rounded-[28px] border border-warm-grey bg-white shadow-[var(--shadow-card)] h-[200px] sm:h-[220px]"
+                className="group relative overflow-hidden rounded-[26px] sm:rounded-[28px] border border-warm-grey bg-white shadow-[var(--shadow-card)] h-[180px] sm:h-[200px] lg:h-[210px]"
               >
                 <img
                   src={buildImg}
@@ -295,7 +292,7 @@ export function Community() {
             {/* Top Photo: Hands-on Pair Programming */}
             <Tilt
               max={3}
-              className="group relative overflow-hidden rounded-[26px] sm:rounded-[28px] border border-warm-grey bg-white shadow-[var(--shadow-card)] h-[180px] sm:h-[190px]"
+              className="group relative overflow-hidden rounded-[26px] sm:rounded-[28px] border border-warm-grey bg-white shadow-[var(--shadow-card)] h-[180px] sm:h-[190px] lg:h-[190px] shrink-0"
             >
               <img
                 src={heroCodingImg}
@@ -322,10 +319,10 @@ export function Community() {
               </div>
             </Tilt>
 
-            {/* ────────── The Green Column with MULTIPLE Floating Feedback Cards ────────── */}
-            <div className="group relative flex flex-1 flex-col overflow-hidden rounded-[28px] sm:rounded-[32px] border border-emerald/25 bg-mint p-5 sm:p-6 shadow-[var(--shadow-card)] min-h-[440px] sm:min-h-[480px]">
+            {/* ────────── The Green Column with MULTIPLE Rolling Feedback Cards ────────── */}
+            <div className="group relative flex flex-col justify-between overflow-hidden rounded-[28px] sm:rounded-[32px] border border-emerald/25 bg-mint p-4.5 sm:p-5 lg:p-6 shadow-[var(--shadow-card)] h-[390px] sm:h-[410px] lg:h-[410px] shrink-0">
               {/* Header inside the green column */}
-              <div className="border-b border-emerald/20 pb-3.5">
+              <div className="border-b border-emerald/20 pb-3 shrink-0">
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2.5">
                     <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-emerald shadow-2xs shrink-0">
@@ -337,19 +334,19 @@ export function Community() {
                     </span>
                   </div>
 
-                  <div className="flex items-center gap-1 text-amber-500 bg-white px-2.5 py-1 rounded-full border border-emerald/20 text-xs font-bold text-charcoal">
+                  <div className="flex items-center gap-1 text-amber-500 bg-white px-2.5 py-1 rounded-full border border-emerald/20 text-xs font-bold text-charcoal shadow-2xs">
                     <Star size={12} className="fill-[#F5B544] text-[#F5B544]" />
                     <span>4.9</span>
                   </div>
                 </div>
 
                 <p className="mt-2 text-xs text-slate font-medium">
-                  Continuous stream of verified learner feedback from our Kolkata batches. (Hover to pause)
+                  Verified student reviews from our Kolkata cohorts (Hover to pause).
                 </p>
               </div>
 
-              {/* Multiple Floating Feedback Cards Container */}
-              <div className="relative flex-1 overflow-hidden mt-3 max-h-[380px] sm:max-h-[440px]">
+              {/* Rolling Feedback Cards Window (Takes middle height with hidden overflow) */}
+              <div className="marquee-track relative flex-1 min-h-0 overflow-hidden my-2.5">
                 {/* Subtle top/bottom fade gradients */}
                 <div
                   aria-hidden="true"
@@ -357,70 +354,131 @@ export function Community() {
                 />
                 <div
                   aria-hidden="true"
-                  className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-8 bg-gradient-to-t from-mint to-transparent"
+                  className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-6 bg-gradient-to-t from-mint to-transparent"
                 />
 
-                {/* Vertical Infinite Stream of Floating Cards with Pause-on-Hover */}
-                <div className="space-y-3.5 py-2 animate-[marquee-up_26s_linear_infinite] hover:[animation-play-state:paused] focus-within:[animation-play-state:paused]">
-                  {STREAM_REVIEWS.map((item, idx) => (
-                    <div
-                      key={`${item.id}-${idx}`}
-                      className="rounded-2xl border border-warm-grey/80 bg-white p-4 shadow-[0_6px_18px_-6px_rgb(8_127_91/0.12)] transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 hover:border-emerald/40"
-                    >
-                      {/* Top Row: Avatar & Name */}
-                      <div className="flex items-center justify-between gap-2">
-                        <div className="flex items-center gap-2.5 min-w-0">
-                          <span
-                            className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl font-display text-xs font-bold border ${
-                              TONE_BADGES[item.tone]
-                            }`}
-                          >
-                            {item.initials}
-                          </span>
-                          <div className="min-w-0">
-                            <h5 className="font-display text-xs sm:text-sm font-bold text-charcoal leading-tight truncate">
-                              {item.name}
-                            </h5>
-                            <p className="text-[0.68rem] sm:text-[0.72rem] text-slate font-medium truncate">
-                              {item.role}
-                            </p>
+                {/* Continuous rolling track with 2 synchronized groups */}
+                <div className="flex flex-col gap-3">
+                  {/* Group 1 */}
+                  <div className="marquee-group flex flex-col gap-3 shrink-0">
+                    {TESTIMONIALS.map((item) => (
+                      <div
+                        key={`g1-${item.id}`}
+                        className="rounded-2xl border border-warm-grey/80 bg-white p-3.5 sm:p-4 shadow-[0_4px_16px_-4px_rgb(8_127_91/0.12)] transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 hover:border-emerald/40"
+                      >
+                        {/* Top Row: Avatar & Name */}
+                        <div className="flex items-center justify-between gap-2">
+                          <div className="flex items-center gap-2.5 min-w-0">
+                            <span
+                              className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl font-display text-xs font-bold border ${
+                                TONE_BADGES[item.tone]
+                              }`}
+                            >
+                              {item.initials}
+                            </span>
+                            <div className="min-w-0">
+                              <h5 className="font-display text-xs sm:text-sm font-bold text-charcoal leading-tight truncate">
+                                {item.name}
+                              </h5>
+                              <p className="text-[0.68rem] sm:text-[0.72rem] text-slate font-medium truncate">
+                                {item.role}
+                              </p>
+                            </div>
                           </div>
+
+                          <span className="chip bg-mint text-emerald text-[0.65rem] font-bold uppercase tracking-wider py-0.5 px-1.5 border border-emerald/20 flex items-center gap-1 shrink-0">
+                            <CheckCircle2 size={10} /> Verified
+                          </span>
                         </div>
 
-                        <span className="chip bg-mint text-emerald text-[0.65rem] font-bold uppercase tracking-wider py-0.5 px-1.5 border border-emerald/20 flex items-center gap-1 shrink-0">
-                          <CheckCircle2 size={10} /> Verified
-                        </span>
-                      </div>
+                        {/* Stars */}
+                        <div className="mt-2 flex items-center gap-0.5 text-amber-500">
+                          {[...Array(item.rating)].map((_, i) => (
+                            <Star key={i} size={11} className="fill-[#F5B544] text-[#F5B544]" />
+                          ))}
+                        </div>
 
-                      {/* Stars */}
-                      <div className="mt-2 flex items-center gap-0.5 text-amber-500">
-                        {[...Array(item.rating)].map((_, i) => (
-                          <Star key={i} size={11} className="fill-[#F5B544] text-[#F5B544]" />
-                        ))}
-                      </div>
+                        {/* Quote */}
+                        <blockquote className="mt-2">
+                          <p className="text-[0.8rem] sm:text-[0.84rem] leading-relaxed text-charcoal/90 font-medium italic">
+                            “{item.quote}”
+                          </p>
+                        </blockquote>
 
-                      {/* Quote */}
-                      <blockquote className="mt-2">
-                        <p className="text-[0.82rem] sm:text-[0.85rem] leading-relaxed text-charcoal/90 font-medium italic">
-                          “{item.quote}”
-                        </p>
-                      </blockquote>
-
-                      {/* Project Tag & Batch */}
-                      <div className="mt-2.5 pt-2 border-t border-warm-grey/60 flex items-center justify-between text-[0.68rem] text-slate">
-                        <span className="font-semibold text-emerald truncate flex items-center gap-1">
-                          <FolderKanban size={11} className="text-tangerine shrink-0" />
-                          <span className="truncate">{item.track}</span>
-                        </span>
-                        <span className="font-medium shrink-0">{item.batch}</span>
+                        {/* Project Tag & Batch */}
+                        <div className="mt-2.5 pt-2 border-t border-warm-grey/60 flex items-center justify-between text-[0.68rem] text-slate">
+                          <span className="font-semibold text-emerald truncate flex items-center gap-1">
+                            <FolderKanban size={11} className="text-tangerine shrink-0" />
+                            <span className="truncate">{item.track}</span>
+                          </span>
+                          <span className="font-medium shrink-0">{item.batch}</span>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
+
+                  {/* Group 2 (Identical duplicate for seamless continuous loop) */}
+                  <div className="marquee-group flex flex-col gap-3 shrink-0" aria-hidden="true">
+                    {TESTIMONIALS.map((item) => (
+                      <div
+                        key={`g2-${item.id}`}
+                        className="rounded-2xl border border-warm-grey/80 bg-white p-3.5 sm:p-4 shadow-[0_4px_16px_-4px_rgb(8_127_91/0.12)] transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 hover:border-emerald/40"
+                      >
+                        {/* Top Row: Avatar & Name */}
+                        <div className="flex items-center justify-between gap-2">
+                          <div className="flex items-center gap-2.5 min-w-0">
+                            <span
+                              className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl font-display text-xs font-bold border ${
+                                TONE_BADGES[item.tone]
+                              }`}
+                            >
+                              {item.initials}
+                            </span>
+                            <div className="min-w-0">
+                              <h5 className="font-display text-xs sm:text-sm font-bold text-charcoal leading-tight truncate">
+                                {item.name}
+                              </h5>
+                              <p className="text-[0.68rem] sm:text-[0.72rem] text-slate font-medium truncate">
+                                {item.role}
+                              </p>
+                            </div>
+                          </div>
+
+                          <span className="chip bg-mint text-emerald text-[0.65rem] font-bold uppercase tracking-wider py-0.5 px-1.5 border border-emerald/20 flex items-center gap-1 shrink-0">
+                            <CheckCircle2 size={10} /> Verified
+                          </span>
+                        </div>
+
+                        {/* Stars */}
+                        <div className="mt-2 flex items-center gap-0.5 text-amber-500">
+                          {[...Array(item.rating)].map((_, i) => (
+                            <Star key={i} size={11} className="fill-[#F5B544] text-[#F5B544]" />
+                          ))}
+                        </div>
+
+                        {/* Quote */}
+                        <blockquote className="mt-2">
+                          <p className="text-[0.8rem] sm:text-[0.84rem] leading-relaxed text-charcoal/90 font-medium italic">
+                            “{item.quote}”
+                          </p>
+                        </blockquote>
+
+                        {/* Project Tag & Batch */}
+                        <div className="mt-2.5 pt-2 border-t border-warm-grey/60 flex items-center justify-between text-[0.68rem] text-slate">
+                          <span className="font-semibold text-emerald truncate flex items-center gap-1">
+                            <FolderKanban size={11} className="text-tangerine shrink-0" />
+                            <span className="truncate">{item.track}</span>
+                          </span>
+                          <span className="font-medium shrink-0">{item.batch}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
 
               {/* Bottom footer badge of the green column */}
-              <div className="pt-2 border-t border-emerald/20 flex items-center justify-between text-[0.7rem] text-charcoal font-medium">
+              <div className="pt-2.5 border-t border-emerald/20 flex items-center justify-between text-[0.7rem] text-charcoal font-medium shrink-0 mt-auto">
                 <span className="flex items-center gap-1 text-emerald font-semibold">
                   <CheckCircle2 size={12} />
                   100% Offline Students
