@@ -20,25 +20,27 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-          cache-dependency-path: 'tutopia/client/package.json'
 
-      - name: Install Client Dependencies
+      - name: Install Dependencies
         run: |
-          cd tutopia/client
+          if [ -d "tutopia/client" ]; then cd tutopia/client; fi
           npm ci || npm install
 
       - name: Run TypeScript Typecheck
         run: |
-          cd tutopia/client
+          if [ -d "tutopia/client" ]; then cd tutopia/client; fi
           npm run typecheck
 
       - name: Run Production Build
         run: |
-          cd tutopia/client
+          if [ -d "tutopia/client" ]; then cd tutopia/client; fi
           npm run build
 
       - name: Verify Distribution Artifacts
         run: |
-          test -f tutopia/client/dist/index.html || { echo "Build output dist/index.html not found!"; exit 1; }
+          if [ -d "tutopia/client/dist" ]; then
+            test -f tutopia/client/dist/index.html || { echo "Build output not found!"; exit 1; }
+          else
+            test -f dist/index.html || { echo "Build output not found!"; exit 1; }
+          fi
           echo "Production build verified successfully."

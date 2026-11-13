@@ -5,13 +5,11 @@ on:
     branches: [main, master]
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow one concurrent deployment
 concurrency:
   group: 'pages'
   cancel-in-progress: true
@@ -29,18 +27,24 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-          cache-dependency-path: 'tutopia/client/package.json'
 
       - name: Install Dependencies
         run: |
-          cd tutopia/client
+          if [ -d "tutopia/client" ]; then cd tutopia/client; fi
           npm ci || npm install
 
-      - name: Build with Relative Base Path
+      - name: Build Production Site
         run: |
-          cd tutopia/client
+          if [ -d "tutopia/client" ]; then cd tutopia/client; fi
           npm run build
+
+      - name: Prepare Pages Output
+        run: |
+          if [ -d "tutopia/client/dist" ]; then
+            cp -r tutopia/client/dist ./site_dist
+          else
+            cp -r dist ./site_dist
+          fi
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
@@ -48,7 +52,7 @@ jobs:
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'tutopia/client/dist'
+          path: './site_dist'
 
   deploy:
     name: Deploy to GitHub Pages

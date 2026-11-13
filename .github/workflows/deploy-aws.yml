@@ -25,17 +25,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-          cache-dependency-path: 'tutopia/client/package.json'
 
       - name: Install Dependencies
         run: |
-          cd tutopia/client
+          if [ -d "tutopia/client" ]; then cd tutopia/client; fi
           npm ci || npm install
 
       - name: Build Production Bundle
         run: |
-          cd tutopia/client
+          if [ -d "tutopia/client" ]; then cd tutopia/client; fi
           npm run build
 
       - name: Configure AWS Credentials
@@ -47,14 +45,15 @@ jobs:
 
       - name: Sync Static Assets to S3 Bucket
         run: |
+          DIST_DIR=$([ -d "tutopia/client/dist" ] && echo "tutopia/client/dist" || echo "dist")
           # Sync HTML with no-cache so users always receive latest revision
-          aws s3 sync tutopia/client/dist s3://${{ secrets.AWS_S3_BUCKET }} \
+          aws s3 sync $DIST_DIR s3://${{ secrets.AWS_S3_BUCKET }} \
             --delete \
             --exclude "assets/*" \
             --cache-control "public, max-age=0, must-revalidate"
 
           # Sync hashed assets with 1-year immutable caching
-          aws s3 sync tutopia/client/dist/assets s3://${{ secrets.AWS_S3_BUCKET }}/assets \
+          aws s3 sync $DIST_DIR/assets s3://${{ secrets.AWS_S3_BUCKET }}/assets \
             --cache-control "public, max-age=31536000, immutable"
 
       - name: Invalidate CloudFront CDN Cache
