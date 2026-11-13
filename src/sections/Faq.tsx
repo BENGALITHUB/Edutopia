@@ -10,7 +10,7 @@ export function Faq() {
   const { enquire } = useSite()
 
   return (
-    <section id="faq" aria-labelledby="faq-title" className="relative bg-white py-24 sm:py-32">
+    <section id="faq" aria-labelledby="faq-title" className="relative bg-white py-12 sm:py-16 lg:py-20">
       <div className="wrap grid gap-12 lg:grid-cols-12 lg:gap-16">
         {/* Sticky Left Info Box */}
         <div className="lg:col-span-4">

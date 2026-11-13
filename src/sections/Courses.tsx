@@ -45,7 +45,7 @@ export function Courses() {
   const selected = COURSES.find((c) => c.id === courseModal)
 
   return (
-    <section id="courses" aria-labelledby="courses-title" className="relative bg-white py-24 sm:py-32">
+    <section id="courses" aria-labelledby="courses-title" className="relative bg-white py-12 sm:py-16 lg:py-20">
       <div className="wrap">
         <div className="grid gap-6 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-8">
@@ -66,7 +66,7 @@ export function Courses() {
         </div>
 
         {/* 5 Course Cards Grid */}
-        <ul className="mt-14 grid gap-6 md:grid-cols-6 lg:gap-8">
+        <ul className="mt-10 sm:mt-12 grid gap-6 md:grid-cols-6 lg:gap-8">
           {COURSES.map((c, i) => (
             <Reveal
               as="li"

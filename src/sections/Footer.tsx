@@ -103,10 +103,10 @@ export function Footer() {
   ]
 
   return (
-    <footer className="relative bg-[#F7F4EE] px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+    <footer className="relative bg-[#F7F4EE] px-4 py-8 sm:py-12 lg:px-8">
       <div className="mx-auto max-w-7xl">
         {/* Floating Bento Card */}
-        <div className="relative overflow-hidden rounded-[32px] border border-warm-grey bg-[#FAF8F5] p-8 shadow-[0_4px_24px_rgba(32,40,32,0.04)] sm:p-12 border-b-[4px] border-b-emerald">
+        <div className="relative overflow-hidden rounded-[32px] border border-warm-grey bg-[#FAF8F5] p-6 sm:p-10 shadow-[0_4px_24px_rgba(32,40,32,0.04)] border-b-[4px] border-b-emerald">
           <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-12 lg:gap-8 items-start">
             {/* Column 1: Brand & Tagline */}
             <div className="lg:col-span-3 flex flex-col items-start">
@@ -302,7 +302,7 @@ export function Footer() {
           </div>
 
           {/* Card Bottom Bar */}
-          <div className="mt-12 flex flex-col sm:flex-row items-center justify-between border-t border-warm-grey pt-6 text-xs sm:text-sm text-slate gap-3">
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-between border-t border-warm-grey pt-5 text-xs sm:text-sm text-slate gap-3">
             <p>© {YEAR} Edutopia. All rights reserved.</p>
 
             <div className="flex items-center gap-3">

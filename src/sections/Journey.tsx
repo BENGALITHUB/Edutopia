@@ -23,7 +23,7 @@ export function Journey() {
     <section
       id="internships"
       aria-labelledby="journey-title"
-      className="relative overflow-hidden bg-white py-24 sm:py-32"
+      className="relative overflow-hidden bg-white py-12 sm:py-16 lg:py-20"
     >
       {/* Background Soft Bloom */}
       <div

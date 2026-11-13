@@ -10,7 +10,7 @@ const sheen =
 export function Why() {
   const reduced = useReducedMotion()
   return (
-    <section id="why" aria-labelledby="why-title" className="relative bg-ivory py-24 sm:py-32">
+    <section id="why" aria-labelledby="why-title" className="relative bg-ivory py-12 sm:py-16 lg:py-20">
       <div className="wrap">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
@@ -31,7 +31,7 @@ export function Why() {
         </div>
 
         {/* Five Interactive Bento Cards */}
-        <div className="mt-14 grid gap-5 md:grid-cols-6 lg:gap-6">
+        <div className="mt-10 sm:mt-12 grid gap-5 md:grid-cols-6 lg:gap-6">
           {/* Bento Card 1 — Internship Pathway (Hero Bento Card) */}
           <Reveal className="md:col-span-6 lg:col-span-4">
             <Tilt
