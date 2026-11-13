@@ -54,7 +54,7 @@ export function Fees() {
   }
 
   return (
-    <section id="fees" aria-labelledby="fees-title" className="relative bg-ivory py-20 sm:py-28 lg:py-32">
+    <section id="fees" aria-labelledby="fees-title" className="relative bg-ivory py-12 sm:py-16 lg:py-20">
       <div className="wrap">
         {/* Affordability Section */}
         <div id="pricing" className="grid gap-8 lg:grid-cols-12 lg:gap-14 items-start">

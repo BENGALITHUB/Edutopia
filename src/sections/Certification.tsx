@@ -10,7 +10,7 @@ export function Certification() {
     <section
       id="certification"
       aria-labelledby="cert-title"
-      className="relative overflow-hidden bg-mint py-24 sm:py-32"
+      className="relative overflow-hidden bg-mint py-12 sm:py-16 lg:py-20"
     >
       <span
         aria-hidden="true"

@@ -90,7 +90,7 @@ export function Hero() {
       ref={ref}
       onPointerMove={onMove}
       aria-labelledby="hero-title"
-      className="relative overflow-hidden bg-white pt-[96px] sm:pt-[124px]"
+      className="relative overflow-hidden bg-white pt-[80px] sm:pt-[96px]"
     >
       {/* Background Grid & Atmospheric Glows */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -103,7 +103,7 @@ export function Hero() {
         <div className="absolute bottom-[-10%] right-[25%] h-[320px] w-[320px] sm:h-[400px] sm:w-[400px] animate-blob rounded-full bg-[radial-gradient(closest-side,rgb(217_242_105/0.18),transparent)] [animation-delay:-13s]" />
       </div>
 
-      <div className="wrap relative grid items-center gap-x-10 gap-y-12 pb-16 lg:grid-cols-12 lg:pb-24">
+      <div className="wrap relative grid items-center gap-x-10 gap-y-8 pb-10 lg:grid-cols-12 lg:pb-14">
         {/* Left Column: Copy & CTAs */}
         <div className="relative z-10 lg:col-span-7">
           {/* Eyebrow */}

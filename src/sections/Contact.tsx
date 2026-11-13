@@ -195,7 +195,7 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" aria-labelledby="contact-title" className="relative bg-mint py-20 sm:py-28 lg:py-32">
+    <section id="contact" aria-labelledby="contact-title" className="relative bg-mint py-12 sm:py-16 lg:py-20">
       <div className="wrap">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-14 items-start">
           {/* Left Column: Contact Details & Offline Centre Credentials */}

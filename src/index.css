@@ -35,6 +35,7 @@
   --shadow-emerald: 0 14px 30px -14px rgb(8 127 91 / 0.55);
 
   --animate-marquee: marquee 36s linear infinite;
+  --animate-marquee-vertical: marquee-up 28s linear infinite;
   --animate-floaty: floaty 8s ease-in-out infinite;
   --animate-floaty-slow: floaty 12s ease-in-out infinite reverse;
   --animate-blob: blob 20s ease-in-out infinite alternate;
@@ -44,6 +45,14 @@
 @keyframes marquee {
   0% { transform: translate3d(0, 0, 0); }
   100% { transform: translate3d(-50%, 0, 0); }
+}
+@keyframes marquee-up {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(0, -50%, 0); }
+}
+@keyframes marquee-roll-up {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(0, calc(-100% - 0.75rem), 0); }
 }
 @keyframes floaty {
   0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
@@ -304,6 +313,20 @@
   }
   .dot-typing span:nth-child(3) {
     animation-delay: 0.3s;
+  }
+
+  /* ── Infinite Vertical Feedback Card Roll (Zero Stutter / Infinite Loop) ── */
+  .marquee-track {
+    position: relative;
+    overflow: hidden;
+  }
+  .marquee-track:hover .marquee-group,
+  .marquee-track:focus-within .marquee-group {
+    animation-play-state: paused;
+  }
+  .marquee-group {
+    animation: marquee-roll-up 24s linear infinite;
+    will-change: transform;
   }
 }
 

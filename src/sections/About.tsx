@@ -68,7 +68,7 @@ export function About() {
   }
 
   return (
-    <section id="about" aria-labelledby="about-title" className="relative bg-white py-20 sm:py-28 lg:py-32">
+    <section id="about" aria-labelledby="about-title" className="relative bg-white py-12 sm:py-16 lg:py-20">
       <div className="wrap">
         {/* Editorial Intro: Asymmetric Grid */}
         <div className="grid gap-8 lg:grid-cols-12 lg:gap-16 items-start">
