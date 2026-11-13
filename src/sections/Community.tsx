@@ -1,172 +1,123 @@
 import { AnimatePresence, m } from 'motion/react'
 import {
   CheckCircle2,
+  ChevronLeft,
+  ChevronRight,
   FolderKanban,
-  MapPin,
-  Quote,
+  MessageSquareQuote,
   Sparkles,
   Star,
 } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Reveal, SplitHeading, Tilt } from '../components/motion-ui'
 import heroStudentsImg from '../assets/img/hero-students.webp'
 import heroCodingImg from '../assets/img/hero-coding.webp'
 import mentorImg from '../assets/img/mentor.webp'
-import collabImg from '../assets/img/journey-collab.webp'
+import buildImg from '../assets/img/step-build.webp'
 
-type TrackFilter = 'all' | 'web' | 'ai' | 'design' | 'data'
+type HighlightCategory =
+  | 'all'
+  | 'classroom'
+  | 'projects'
+  | 'workshops'
+  | 'testimonials'
 
-interface ReviewItem {
+interface Testimonial {
   id: string
   name: string
   initials: string
-  avatarTone: 'emerald' | 'tangerine' | 'lime' | 'forest'
+  tone: 'emerald' | 'tangerine' | 'lime'
   role: string
   track: string
-  trackCategory: 'web' | 'ai' | 'design' | 'data'
-  batch: string
   rating: number
   quote: string
   project: string
-  highlight: string
+  batch: string
 }
 
-const REVIEWS: ReviewItem[] = [
+const TESTIMONIALS: Testimonial[] = [
   {
-    id: 'rev-1',
+    id: 't1',
     name: 'Ananya Roy',
     initials: 'AR',
-    avatarTone: 'emerald',
+    tone: 'emerald',
     role: 'Frontend Developer Intern',
     track: 'Full Stack Web Development',
-    trackCategory: 'web',
-    batch: 'Autumn 2025 Cohort',
     rating: 5,
     quote:
-      'The offline practical sessions in Jadavpur gave me the hands-on project confidence I couldn’t get from online videos alone. Having mentors right beside you to debug React state, APIs, and deployment errors made all the difference. Deployed a live business portal within 8 weeks.',
+      'The offline practical sessions in Jadavpur gave me the hands-on project confidence I couldn’t get from online videos alone. Having mentors right next to you to debug React state and APIs makes all the difference.',
     project: 'Business Web Application',
-    highlight: 'Hired as Frontend Intern',
+    batch: '2025 Cohort',
   },
   {
-    id: 'rev-2',
+    id: 't2',
     name: 'Debjit Sen',
     initials: 'DS',
-    avatarTone: 'tangerine',
+    tone: 'tangerine',
     role: 'AI Engineering Trainee',
     track: 'Artificial Intelligence & ML',
-    trackCategory: 'ai',
-    batch: 'Winter 2025 Cohort',
     rating: 5,
     quote:
-      'Most courses only teach theory. At Edutopia, we trained on actual datasets, implemented machine learning models from scratch, and built an end-to-end AI chatbot with prompt engineering and LangChain. The mentor guidance was world-class.',
+      'Most courses only teach theory. At Edutopia, we trained on actual datasets, implemented ML models, and built an end-to-end AI chatbot with prompt engineering. Mentorship is top tier.',
     project: 'AI-Powered Chatbot',
-    highlight: 'Capstone Distinction',
+    batch: '2025 Cohort',
   },
   {
-    id: 'rev-3',
+    id: 't3',
     name: 'Priyanka Mondal',
     initials: 'PM',
-    avatarTone: 'lime',
+    tone: 'lime',
     role: 'Junior UI/UX Designer',
     track: 'UI/UX & Graphic Design',
-    trackCategory: 'design',
-    batch: 'Spring 2025 Cohort',
     rating: 5,
     quote:
-      'I transitioned from a non-design background with zero Figma experience. The structured curriculum walked me through user research, wireframing, and creating a complete design system. My portfolio helped me land my first paid design internship.',
+      'Transitioned from a non-tech background with zero Figma knowledge. The structured curriculum and project reviews helped me build a portfolio that landed my first paid product design internship.',
     project: 'Interactive Mobile App Prototype',
-    highlight: 'Career Switch to Design',
+    batch: '2025 Cohort',
   },
   {
-    id: 'rev-4',
+    id: 't4',
     name: 'Rohan Das',
     initials: 'RD',
-    avatarTone: 'forest',
+    tone: 'emerald',
     role: 'Junior Data Analyst',
-    track: 'Data Analytics',
-    trackCategory: 'data',
-    batch: 'Autumn 2025 Cohort',
+    track: 'Data Analytics Track',
     rating: 5,
     quote:
-      'Mastered SQL complex queries, Power BI DAX formulas, and Python automation. The practical classroom case studies using realistic sales datasets prepared me directly for technical interviews in Kolkata.',
+      'Mastered SQL complex queries, Power BI DAX formulas, and Python automation. Realistic business case studies prepared me directly for technical interviews in Kolkata.',
     project: 'Business Intelligence Dashboard',
-    highlight: 'Corporate Pathway',
-  },
-  {
-    id: 'rev-5',
-    name: 'Sneha Mukherjee',
-    initials: 'SM',
-    avatarTone: 'tangerine',
-    role: 'Digital Marketing Trainee',
-    track: 'Digital Marketing & SEO',
-    trackCategory: 'data',
-    batch: 'Summer 2025 Cohort',
-    rating: 5,
-    quote:
-      'Running actual live Google Ads and optimizing on-page SEO for a Kolkata brand was the best learning experience. We weren’t just reading slides; we analyzed real ROAS and keyword performance metrics.',
-    project: 'Live SEO & Marketing Campaign',
-    highlight: 'Live Campaign Verified',
-  },
-  {
-    id: 'rev-6',
-    name: 'Arpan Bhattacharya',
-    initials: 'AB',
-    avatarTone: 'emerald',
-    role: 'Web Developer Associate',
-    track: 'Full Stack Web Development',
-    trackCategory: 'web',
-    batch: 'Winter 2025 Cohort',
-    rating: 5,
-    quote:
-      'The faculty’s patience with complete beginners is unmatched. Every single doubt was addressed in person during lab hours. The internship pathway conditions were clearly explained upfront with zero false promises.',
-    project: 'Full Stack MERN Platform',
-    highlight: 'Offline Jadavpur Batch',
+    batch: '2025 Cohort',
   },
 ]
 
-const GALLERY_PHOTOS = [
-  {
-    id: 'g1',
-    title: 'Collaborative Learning Space',
-    subtitle: 'Offline cohorts solving coding briefs together at our Jadavpur centre',
-    img: heroStudentsImg,
-    badge: 'Classroom Culture',
-  },
-  {
-    id: 'g2',
-    title: 'Hands-on Pair Programming',
-    subtitle: 'Students debugging full stack applications with real-time mentor feedback',
-    img: heroCodingImg,
-    badge: 'Pair Coding',
-  },
-  {
-    id: 'g3',
-    title: 'Mentor Architecture Reviews',
-    subtitle: 'Weekly architecture critiques and doubt-clearing sessions',
-    img: mentorImg,
-    badge: '1-on-1 Guidance',
-  },
-  {
-    id: 'g4',
-    title: 'Team Sprints & Project Pitch',
-    subtitle: 'Brainstorming real-world problem statements and capstone solutions',
-    img: collabImg,
-    badge: 'Team Sprints',
-  },
-]
-
-const TONE_CLASSES = {
-  emerald: 'bg-mint text-emerald border-emerald/20',
+const TONE_BADGES = {
+  emerald: 'bg-mint text-emerald border-emerald/25',
   tangerine: 'bg-tangerine/15 text-charcoal border-tangerine/30',
   lime: 'bg-lime/50 text-charcoal border-forest/30',
-  forest: 'bg-forest/10 text-forest border-forest/20',
 }
 
 export function Community() {
-  const [filter, setFilter] = useState<TrackFilter>('all')
+  const [filter, setFilter] = useState<HighlightCategory>('all')
+  const [activeReviewIndex, setActiveReviewIndex] = useState(0)
+  const [isPaused, setIsPaused] = useState(false)
 
-  const filtered =
-    filter === 'all' ? REVIEWS : REVIEWS.filter((r) => r.trackCategory === filter)
+  // Auto-cycle through floating review cards every 5.5s (pauses on hover)
+  useEffect(() => {
+    if (isPaused) return
+    const timer = setInterval(() => {
+      setActiveReviewIndex((prev) => (prev + 1) % TESTIMONIALS.length)
+    }, 5500)
+    return () => clearInterval(timer)
+  }, [isPaused])
+
+  const nextReview = () =>
+    setActiveReviewIndex((prev) => (prev + 1) % TESTIMONIALS.length)
+  const prevReview = () =>
+    setActiveReviewIndex((prev) => (prev - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)
+
+  const currentReview = TESTIMONIALS[activeReviewIndex]!
+  const secondaryReview =
+    TESTIMONIALS[(activeReviewIndex + 1) % TESTIMONIALS.length]!
 
   return (
     <section
@@ -175,67 +126,38 @@ export function Community() {
       className="relative bg-ivory py-12 sm:py-16 lg:py-20"
     >
       <div className="wrap">
-        {/* Header & Rating Trust Summary */}
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-2xl">
+        {/* Section Header: Title + Intro */}
+        <div className="grid gap-6 lg:grid-cols-12 lg:items-end">
+          <div className="lg:col-span-8">
             <Reveal>
-              <p className="eyebrow">Verified Student Feedback</p>
+              <p className="eyebrow">Student Community</p>
             </Reveal>
             <SplitHeading
               id="community-title"
-              parts={['Real Journeys.', ['Real Feedback.', 'emerald']]}
-              className="mt-4 text-[clamp(2.2rem,5.4vw,4rem)] font-bold text-charcoal leading-[1.08]"
+              parts={[
+                'Good Skills.',
+                ['Great People.', 'emerald'],
+                ['Better Futures.', 'tangerine'],
+              ]}
+              className="mt-4 text-[clamp(2.2rem,5.6vw,4.2rem)] font-bold text-charcoal leading-[1.08]"
             />
-            <Reveal delay={0.12}>
-              <p className="mt-4 text-[1.02rem] text-slate leading-relaxed sm:text-[1.08rem]">
-                Hear directly from college students, career switchers, and ambitious learners who built practical skills at our offline center in Jadavpur, Kolkata.
-              </p>
-            </Reveal>
           </div>
-
-          {/* Aggregate Rating Banner Card */}
-          <Reveal delay={0.18}>
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 rounded-2xl border border-warm-grey bg-white p-4 sm:p-5 shadow-xs">
-              <div className="flex items-center gap-1.5 text-amber-500">
-                <span className="font-display text-3xl font-extrabold text-charcoal leading-none">
-                  4.9
-                </span>
-                <div className="flex flex-col">
-                  <div className="flex items-center gap-0.5">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={15} className="fill-[#F5B544] text-[#F5B544]" />
-                    ))}
-                  </div>
-                  <span className="font-display text-[0.68rem] font-bold uppercase tracking-wider text-slate mt-0.5">
-                    250+ Verified Reviews
-                  </span>
-                </div>
-              </div>
-
-              <div className="hidden sm:block h-10 w-[1px] bg-warm-grey" aria-hidden="true" />
-
-              <div className="flex items-center gap-2">
-                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-mint text-emerald shrink-0">
-                  <CheckCircle2 size={18} />
-                </span>
-                <span className="text-xs text-slate font-medium leading-snug">
-                  100% Offline Students<br />
-                  <strong className="text-charcoal font-semibold">Jadavpur, Kolkata</strong>
-                </span>
-              </div>
-            </div>
+          <Reveal delay={0.15} className="lg:col-span-4">
+            <p className="text-[1.02rem] text-slate leading-relaxed sm:text-[1.06rem]">
+              Learning is better when you’re surrounded by people who inspire you. Connect, collaborate, share ideas and grow together in a welcoming offline space in Kolkata.
+            </p>
           </Reveal>
         </div>
 
-        {/* Filter Pills */}
-        <div className="mt-8 sm:mt-10 flex flex-wrap items-center gap-2">
+        {/* Filter Tabs matching reference image */}
+        <div className="mt-8 flex flex-wrap gap-2">
           {(
             [
-              ['all', 'All Reviews (6)'],
-              ['web', 'Full Stack Web Dev'],
-              ['ai', 'AI & Machine Learning'],
-              ['design', 'UI/UX Design'],
-              ['data', 'Data & Marketing'],
+              ['all', 'All Highlights'],
+              ['classroom', 'Classroom Culture'],
+              ['projects', 'Project Sprints'],
+              ['workshops', 'Workshops & Mentorship'],
+              ['testimonials', 'Student Testimonials'],
             ] as const
           ).map(([cat, label]) => (
             <button
@@ -253,170 +175,299 @@ export function Community() {
           ))}
         </div>
 
-        {/* Dynamic Animated Reviews Grid */}
-        <div className="mt-8">
-          <m.ul
-            layout
-            className="grid gap-5 md:grid-cols-2 lg:grid-cols-3"
-            role="list"
-            aria-label="Student feedback testimonials"
+        {/* Bento Grid: 2 Columns on Desktop, Fully Responsive on Tablet & Mobile */}
+        <div className="mt-8 grid gap-4 sm:gap-5 lg:grid-cols-12 items-stretch">
+          {/* ──────────────── Left Main Column (Photos) ──────────────── */}
+          <div
+            className={`lg:col-span-7 flex flex-col gap-4 sm:gap-5 ${
+              filter === 'testimonials' ? 'hidden lg:flex opacity-40' : ''
+            }`}
           >
-            <AnimatePresence mode="popLayout">
-              {filtered.map((item) => (
-                <m.li
-                  layout
-                  key={item.id}
-                  initial={{ opacity: 0, scale: 0.96, y: 16 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.94, y: -12 }}
-                  transition={{ duration: 0.35, ease: 'easeOut' }}
-                  className="flex flex-col"
-                >
-                  <Tilt
-                    max={3}
-                    className="relative flex h-full flex-col justify-between overflow-hidden rounded-[26px] border border-warm-grey bg-white p-6 sm:p-7 shadow-[var(--shadow-card)] transition-all duration-300 hover:shadow-xl hover:border-emerald/40"
-                  >
-                    {/* Background subtle watermark quote */}
-                    <Quote
-                      size={72}
-                      aria-hidden="true"
-                      className="pointer-events-none absolute -right-2 -top-2 text-warm-grey/30"
-                    />
-
-                    <div>
-                      {/* Top Row: Avatar & Badges */}
-                      <div className="flex items-center justify-between gap-3">
-                        <div className="flex items-center gap-3">
-                          <span
-                            className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl font-display text-sm font-bold border ${
-                              TONE_CLASSES[item.avatarTone]
-                            }`}
-                          >
-                            {item.initials}
-                          </span>
-                          <div>
-                            <h4 className="font-display text-[1rem] font-bold text-charcoal leading-snug">
-                              {item.name}
-                            </h4>
-                            <p className="text-xs text-slate font-medium">{item.role}</p>
-                          </div>
-                        </div>
-
-                        <span className="chip bg-mint text-emerald text-[0.7rem] font-bold uppercase tracking-wider shrink-0 py-0.5 px-2 border border-emerald/20 flex items-center gap-1">
-                          <CheckCircle2 size={11} />
-                          Verified
-                        </span>
-                      </div>
-
-                      {/* 5-Star Rating Row */}
-                      <div className="mt-4 flex items-center gap-1 text-amber-500">
-                        {[...Array(item.rating)].map((_, i) => (
-                          <Star key={i} size={15} className="fill-[#F5B544] text-[#F5B544]" />
-                        ))}
-                        <span className="ml-1.5 text-xs font-bold text-charcoal">
-                          5.0
-                        </span>
-                      </div>
-
-                      {/* Testimonial Quote */}
-                      <blockquote className="mt-3.5">
-                        <p className="text-[0.95rem] leading-relaxed text-charcoal/90 font-medium">
-                          “{item.quote}”
-                        </p>
-                      </blockquote>
-                    </div>
-
-                    {/* Bottom Metadata & Capstone Badge */}
-                    <div className="mt-6 pt-4 border-t border-warm-grey/80 flex flex-col gap-2">
-                      <div className="flex items-center justify-between gap-2 text-xs">
-                        <span className="font-display font-semibold text-emerald truncate">
-                          {item.track}
-                        </span>
-                        <span className="text-slate font-medium shrink-0">
-                          {item.batch}
-                        </span>
-                      </div>
-
-                      <div className="flex items-center gap-1.5 rounded-lg bg-ivory px-2.5 py-1.5 text-xs text-charcoal font-medium border border-warm-grey/70">
-                        <FolderKanban size={13} className="text-tangerine shrink-0" />
-                        <span className="truncate">{item.project}</span>
-                      </div>
-                    </div>
-                  </Tilt>
-                </m.li>
-              ))}
-            </AnimatePresence>
-          </m.ul>
-        </div>
-
-        {/* Offline Centre Snapshots Gallery */}
-        <div className="mt-12 sm:mt-16 pt-8 border-t border-warm-grey">
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6">
-            <div>
-              <span className="chip bg-mint text-emerald text-xs font-bold uppercase tracking-wider">
-                Centre Life
+            {/* Top Large Photo: Collaborative Learning Space */}
+            <Tilt
+              max={2}
+              className="group relative overflow-hidden rounded-[28px] sm:rounded-[32px] border border-warm-grey bg-white shadow-[var(--shadow-card)] min-h-[280px] sm:min-h-[380px] lg:h-[390px] flex-1"
+            >
+              <img
+                src={heroStudentsImg}
+                alt="Collaborative Learning Space at Edutopia Kolkata"
+                width={1000}
+                height={700}
+                loading="lazy"
+                className="h-full w-full object-cover transition-transform duration-[850ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-105"
+              />
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/20 to-transparent"
+              />
+              <span className="absolute left-4 top-4 chip bg-white/90 text-charcoal text-xs font-bold backdrop-blur shadow-2xs">
+                Classroom
               </span>
-              <h3 className="text-2xl sm:text-3xl font-bold text-charcoal mt-1">
-                Inside Edutopia Kolkata
-              </h3>
-              <p className="text-sm text-slate mt-1">
-                A modern, collaborative space built for hands-on offline learning in Jadavpur.
-              </p>
-            </div>
-            <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald bg-white px-3 py-1.5 rounded-full border border-warm-grey shadow-2xs">
-              <MapPin size={13} />
-              <span>44, Shyama Pally, Jadavpur</span>
+              <div className="absolute inset-x-0 bottom-0 p-5 sm:p-7 text-white">
+                <h4 className="font-display text-lg sm:text-2xl font-bold leading-snug">
+                  Collaborative Learning Space
+                </h4>
+                <p className="mt-1 text-xs sm:text-sm text-white/85 line-clamp-2 max-w-lg">
+                  Offline cohorts solving challenges together at our Kolkata centre.
+                </p>
+              </div>
+            </Tilt>
+
+            {/* Bottom Row: 2 Side-by-Side Photos */}
+            <div className="grid gap-4 sm:gap-5 sm:grid-cols-2">
+              {/* Bottom Left Photo: Mentor-Guided Code Reviews */}
+              <Tilt
+                max={3}
+                className="group relative overflow-hidden rounded-[26px] sm:rounded-[28px] border border-warm-grey bg-white shadow-[var(--shadow-card)] h-[210px] sm:h-[230px]"
+              >
+                <img
+                  src={mentorImg}
+                  alt="Mentor-Guided Code Reviews"
+                  width={600}
+                  height={450}
+                  loading="lazy"
+                  className="h-full w-full object-cover transition-transform duration-[850ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-105"
+                />
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 bg-gradient-to-t from-charcoal/85 via-charcoal/20 to-transparent"
+                />
+                <span className="absolute left-3.5 top-3.5 chip bg-white/90 text-charcoal text-[0.72rem] font-bold backdrop-blur shadow-2xs">
+                  Mentorship
+                </span>
+                <div className="absolute inset-x-0 bottom-0 p-4 text-white">
+                  <h4 className="font-display text-sm sm:text-base font-bold leading-tight">
+                    Mentor-Guided Code Reviews
+                  </h4>
+                  <p className="mt-0.5 text-[0.72rem] sm:text-xs text-white/80 line-clamp-1">
+                    Weekly architecture critiques and doubt-clearing sessions.
+                  </p>
+                </div>
+              </Tilt>
+
+              {/* Bottom Right Photo: Capstone Design Sprints */}
+              <Tilt
+                max={3}
+                className="group relative overflow-hidden rounded-[26px] sm:rounded-[28px] border border-warm-grey bg-white shadow-[var(--shadow-card)] h-[210px] sm:h-[230px]"
+              >
+                <img
+                  src={buildImg}
+                  alt="Capstone Design Sprints"
+                  width={600}
+                  height={450}
+                  loading="lazy"
+                  className="h-full w-full object-cover transition-transform duration-[850ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-105"
+                />
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 bg-gradient-to-t from-charcoal/85 via-charcoal/20 to-transparent"
+                />
+                <span className="absolute left-3.5 top-3.5 chip bg-white/90 text-charcoal text-[0.72rem] font-bold backdrop-blur shadow-2xs">
+                  Design Sprint
+                </span>
+                <div className="absolute inset-x-0 bottom-0 p-4 text-white">
+                  <h4 className="font-display text-sm sm:text-base font-bold leading-tight">
+                    Capstone Design Sprints
+                  </h4>
+                  <p className="mt-0.5 text-[0.72rem] sm:text-xs text-white/80 line-clamp-1">
+                    Building responsive interfaces and prototype wireframes.
+                  </p>
+                </div>
+              </Tilt>
             </div>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {GALLERY_PHOTOS.map((photo) => (
+          {/* ──────────────── Right Column (Pair Coding + Green Feedback Column) ──────────────── */}
+          <div
+            className={`lg:col-span-5 flex flex-col gap-4 sm:gap-5 ${
+              filter === 'classroom' || filter === 'workshops'
+                ? 'hidden lg:flex opacity-40'
+                : ''
+            }`}
+          >
+            {/* Top Photo: Hands-on Pair Programming */}
+            <Tilt
+              max={3}
+              className="group relative overflow-hidden rounded-[26px] sm:rounded-[28px] border border-warm-grey bg-white shadow-[var(--shadow-card)] h-[190px] sm:h-[200px]"
+            >
+              <img
+                src={heroCodingImg}
+                alt="Hands-on Pair Programming at Edutopia"
+                width={800}
+                height={500}
+                loading="lazy"
+                className="h-full w-full object-cover transition-transform duration-[850ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-105"
+              />
               <div
-                key={photo.id}
-                className="group relative overflow-hidden rounded-[22px] border border-warm-grey bg-white shadow-2xs transition-all duration-300 hover:shadow-md"
-              >
-                <div className="relative h-48 w-full overflow-hidden bg-mint">
-                  <img
-                    src={photo.img}
-                    alt={photo.title}
-                    width={600}
-                    height={400}
-                    loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-105"
-                  />
-                  <div
-                    aria-hidden="true"
-                    className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/20 to-transparent"
-                  />
-                  <span className="absolute left-3 top-3 chip bg-white/90 text-charcoal text-[0.72rem] font-bold backdrop-blur">
-                    {photo.badge}
+                aria-hidden="true"
+                className="absolute inset-0 bg-gradient-to-t from-charcoal/85 via-charcoal/20 to-transparent"
+              />
+              <span className="absolute left-3.5 top-3.5 chip bg-white/90 text-charcoal text-[0.72rem] font-bold backdrop-blur shadow-2xs">
+                Pair Coding
+              </span>
+              <div className="absolute inset-x-0 bottom-0 p-4 text-white">
+                <h4 className="font-display text-sm sm:text-base font-bold leading-tight">
+                  Hands-on Pair Programming
+                </h4>
+                <p className="mt-0.5 text-[0.72rem] sm:text-xs text-white/80 line-clamp-1">
+                  Students debugging full stack applications side by side.
+                </p>
+              </div>
+            </Tilt>
+
+            {/* ────────── The Green Column with Floating Feedback Cards ────────── */}
+            <div
+              onMouseEnter={() => setIsPaused(true)}
+              onMouseLeave={() => setIsPaused(false)}
+              className="relative flex flex-1 flex-col justify-between overflow-hidden rounded-[28px] sm:rounded-[32px] border border-emerald/25 bg-mint p-5 sm:p-6 shadow-[var(--shadow-card)] transition-all duration-300 hover:shadow-xl"
+            >
+              {/* Header inside the green column */}
+              <div>
+                <div className="flex items-center justify-between gap-2 border-b border-emerald/20 pb-3.5">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-emerald shadow-2xs shrink-0">
+                    <MessageSquareQuote size={20} />
                   </span>
-                  <div className="absolute inset-x-0 bottom-0 p-3.5 text-white">
-                    <h4 className="font-display text-sm font-bold leading-tight">
-                      {photo.title}
-                    </h4>
-                    <p className="mt-0.5 text-[0.75rem] text-white/80 line-clamp-1">
-                      {photo.subtitle}
-                    </p>
+                  <div className="flex items-center gap-1.5">
+                    <span className="chip bg-white text-emerald text-[0.7rem] font-bold uppercase tracking-wider shadow-2xs border border-emerald/20 flex items-center gap-1">
+                      <Sparkles size={11} />
+                      Verified Feedback
+                    </span>
+                  </div>
+                </div>
+
+                <div className="mt-3 flex items-center justify-between text-xs text-charcoal font-semibold">
+                  <div className="flex items-center gap-1 text-amber-500">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} size={13} className="fill-[#F5B544] text-[#F5B544]" />
+                    ))}
+                    <span className="ml-1 text-charcoal font-bold">4.9 / 5.0</span>
+                  </div>
+                  <span className="text-slate text-[0.72rem]">250+ Kolkata Students</span>
+                </div>
+              </div>
+
+              {/* Floating Cards Container: Animated Cards Stack */}
+              <div className="my-4 space-y-3 relative">
+                {/* Primary Floating Card */}
+                <AnimatePresence mode="wait">
+                  <m.div
+                    key={currentReview.id}
+                    initial={{ opacity: 0, y: 16, scale: 0.96 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -16, scale: 0.96 }}
+                    transition={{ duration: 0.45, ease: 'easeOut' }}
+                    className="relative overflow-hidden rounded-2xl border border-warm-grey bg-white p-4 sm:p-5 shadow-[0_8px_20px_-6px_rgb(8_127_91/0.14)] transition-transform duration-500 hover:scale-[1.01]"
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex items-center gap-2.5">
+                        <span
+                          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl font-display text-xs font-bold border ${
+                            TONE_BADGES[currentReview.tone]
+                          }`}
+                        >
+                          {currentReview.initials}
+                        </span>
+                        <div>
+                          <h5 className="font-display text-sm font-bold text-charcoal leading-tight">
+                            {currentReview.name}
+                          </h5>
+                          <p className="text-[0.72rem] text-slate font-medium">
+                            {currentReview.role}
+                          </p>
+                        </div>
+                      </div>
+
+                      <span className="chip bg-mint text-emerald text-[0.66rem] font-bold uppercase tracking-wider py-0.5 px-1.5 border border-emerald/20 flex items-center gap-1 shrink-0">
+                        <CheckCircle2 size={10} /> Verified
+                      </span>
+                    </div>
+
+                    <blockquote className="mt-3">
+                      <p className="text-[0.88rem] leading-relaxed text-charcoal/90 font-medium italic">
+                        “{currentReview.quote}”
+                      </p>
+                    </blockquote>
+
+                    <div className="mt-3 pt-2.5 border-t border-warm-grey/70 flex items-center justify-between text-[0.72rem] text-slate">
+                      <span className="font-semibold text-emerald truncate flex items-center gap-1.5">
+                        <FolderKanban size={13} className="text-tangerine shrink-0" />
+                        <span className="truncate">{currentReview.track}</span>
+                      </span>
+                      <span className="font-medium shrink-0">{currentReview.batch}</span>
+                    </div>
+                  </m.div>
+                </AnimatePresence>
+
+                {/* Secondary Mini Floating Preview Card */}
+                <div
+                  onClick={nextReview}
+                  className="cursor-pointer rounded-2xl border border-emerald/20 bg-white/85 p-3 shadow-xs backdrop-blur-xs transition-all duration-300 hover:bg-white hover:scale-[1.01] hover:shadow-md hidden sm:block"
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <span
+                        className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg font-display text-[0.7rem] font-bold border ${
+                          TONE_BADGES[secondaryReview.tone]
+                        }`}
+                      >
+                        {secondaryReview.initials}
+                      </span>
+                      <div className="min-w-0">
+                        <span className="block font-display text-xs font-bold text-charcoal truncate">
+                          {secondaryReview.name}
+                        </span>
+                        <span className="block text-[0.68rem] text-slate truncate">
+                          {secondaryReview.track}
+                        </span>
+                      </div>
+                    </div>
+                    <span className="text-[0.68rem] font-semibold text-emerald shrink-0">
+                      Next review →
+                    </span>
                   </div>
                 </div>
               </div>
-            ))}
+
+              {/* Bottom Interactive Navigation Bar */}
+              <div className="pt-2 border-t border-emerald/20 flex items-center justify-between">
+                <div className="flex items-center gap-1.5">
+                  {TESTIMONIALS.map((t, idx) => (
+                    <button
+                      key={t.id}
+                      type="button"
+                      aria-label={`Go to feedback from ${t.name}`}
+                      onClick={() => setActiveReviewIndex(idx)}
+                      className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                        activeReviewIndex === idx
+                          ? 'w-6 bg-emerald'
+                          : 'w-2 bg-emerald/30 hover:bg-emerald/60'
+                      }`}
+                    />
+                  ))}
+                </div>
+
+                <div className="flex items-center gap-1.5">
+                  <button
+                    type="button"
+                    onClick={prevReview}
+                    aria-label="Previous review"
+                    className="flex h-8 w-8 items-center justify-center rounded-lg bg-white text-charcoal shadow-2xs border border-emerald/20 hover:text-emerald hover:border-emerald transition-colors cursor-pointer"
+                  >
+                    <ChevronLeft size={16} />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={nextReview}
+                    aria-label="Next review"
+                    className="flex h-8 w-8 items-center justify-center rounded-lg bg-white text-charcoal shadow-2xs border border-emerald/20 hover:text-emerald hover:border-emerald transition-colors cursor-pointer"
+                  >
+                    <ChevronRight size={16} />
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-
-        {/* Authenticity Guarantee Callout */}
-        <Reveal>
-          <div className="mt-10 rounded-2xl border border-warm-grey bg-white p-4.5 sm:p-5 text-center text-xs sm:text-sm text-slate shadow-2xs flex flex-col sm:flex-row items-center justify-center gap-2">
-            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-mint text-emerald shrink-0">
-              <Sparkles size={14} />
-            </span>
-            <p>
-              <strong className="text-charcoal font-semibold">Authenticity Commitment: </strong>
-              Every review reflects real students who completed assignments and capstones in our Kolkata cohorts. No stock personas or fabricated testimonials.
-            </p>
-          </div>
-        </Reveal>
       </div>
     </section>
   )
