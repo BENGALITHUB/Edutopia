@@ -190,7 +190,7 @@ export function Community() {
             {/* Top Large Photo: Collaborative Learning Space */}
             <Tilt
               max={2}
-              className="group relative overflow-hidden rounded-[28px] sm:rounded-[32px] border border-warm-grey bg-white shadow-[var(--shadow-card)] h-[280px] sm:h-[340px] lg:h-[390px] shrink-0"
+              className="group relative overflow-hidden rounded-[28px] sm:rounded-[32px] border border-warm-grey bg-white shadow-[var(--shadow-card)] h-[340px] sm:h-[400px] lg:h-[440px] shrink-0"
             >
               <img
                 src={heroStudentsImg}
@@ -198,7 +198,7 @@ export function Community() {
                 width={1000}
                 height={700}
                 loading="lazy"
-                className="h-full w-full object-cover transition-transform duration-[850ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-105"
+                className="h-full w-full object-cover object-[center_top] transition-transform duration-[850ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-105"
               />
               <div
                 aria-hidden="true"
@@ -222,7 +222,7 @@ export function Community() {
               {/* Bottom Left Photo: Mentor-Guided Code Reviews */}
               <Tilt
                 max={3}
-                className="group relative overflow-hidden rounded-[26px] sm:rounded-[28px] border border-warm-grey bg-white shadow-[var(--shadow-card)] h-[180px] sm:h-[200px] lg:h-[210px]"
+                className="group relative overflow-hidden rounded-[26px] sm:rounded-[28px] border border-warm-grey bg-white shadow-[var(--shadow-card)] h-[180px] sm:h-[190px] lg:h-[195px]"
               >
                 <img
                   src={mentorImg}
@@ -230,7 +230,7 @@ export function Community() {
                   width={600}
                   height={450}
                   loading="lazy"
-                  className="h-full w-full object-cover transition-transform duration-[850ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-105"
+                  className="h-full w-full object-cover object-center transition-transform duration-[850ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-105"
                 />
                 <div
                   aria-hidden="true"
@@ -252,7 +252,7 @@ export function Community() {
               {/* Bottom Right Photo: Capstone Design Sprints */}
               <Tilt
                 max={3}
-                className="group relative overflow-hidden rounded-[26px] sm:rounded-[28px] border border-warm-grey bg-white shadow-[var(--shadow-card)] h-[180px] sm:h-[200px] lg:h-[210px]"
+                className="group relative overflow-hidden rounded-[26px] sm:rounded-[28px] border border-warm-grey bg-white shadow-[var(--shadow-card)] h-[180px] sm:h-[190px] lg:h-[195px]"
               >
                 <img
                   src={buildImg}
@@ -260,7 +260,7 @@ export function Community() {
                   width={600}
                   height={450}
                   loading="lazy"
-                  className="h-full w-full object-cover transition-transform duration-[850ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-105"
+                  className="h-full w-full object-cover object-top transition-transform duration-[850ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-105"
                 />
                 <div
                   aria-hidden="true"
@@ -292,7 +292,7 @@ export function Community() {
             {/* Top Photo: Hands-on Pair Programming */}
             <Tilt
               max={3}
-              className="group relative overflow-hidden rounded-[26px] sm:rounded-[28px] border border-warm-grey bg-white shadow-[var(--shadow-card)] h-[180px] sm:h-[190px] lg:h-[190px] shrink-0"
+              className="group relative overflow-hidden rounded-[26px] sm:rounded-[28px] border border-warm-grey bg-white shadow-[var(--shadow-card)] h-[160px] sm:h-[170px] lg:h-[175px] shrink-0"
             >
               <img
                 src={heroCodingImg}
@@ -300,7 +300,7 @@ export function Community() {
                 width={800}
                 height={500}
                 loading="lazy"
-                className="h-full w-full object-cover transition-transform duration-[850ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-105"
+                className="h-full w-full object-cover object-[center_20%] transition-transform duration-[850ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-105"
               />
               <div
                 aria-hidden="true"
@@ -320,7 +320,7 @@ export function Community() {
             </Tilt>
 
             {/* ────────── The Green Column with MULTIPLE Rolling Feedback Cards ────────── */}
-            <div className="group relative flex flex-col justify-between overflow-hidden rounded-[28px] sm:rounded-[32px] border border-emerald/25 bg-mint p-4.5 sm:p-5 lg:p-6 shadow-[var(--shadow-card)] h-[390px] sm:h-[410px] lg:h-[410px] shrink-0">
+            <div className="group relative flex flex-col justify-between overflow-hidden rounded-[28px] sm:rounded-[32px] border border-emerald/25 bg-mint p-4.5 sm:p-5 lg:p-6 shadow-[var(--shadow-card)] h-[420px] sm:h-[450px] lg:h-[460px] shrink-0">
               {/* Header inside the green column */}
               <div className="border-b border-emerald/20 pb-3 shrink-0">
                 <div className="flex items-center justify-between gap-2">
