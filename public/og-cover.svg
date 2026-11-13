@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <radialGradient id="mint" cx="0" cy="0" r="1" gradientTransform="translate(120 80) scale(420)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#AAE5D4" stop-opacity="0.7"/><stop offset="1" stop-color="#AAE5D4" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="lilac" cx="0" cy="0" r="1" gradientTransform="translate(900 300) scale(420)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B6A7F7" stop-opacity="0.55"/><stop offset="1" stop-color="#B6A7F7" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="peach" cx="0" cy="0" r="1" gradientTransform="translate(620 640) scale(320)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFBF91" stop-opacity="0.5"/><stop offset="1" stop-color="#FFBF91" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="core" cx="0" cy="0" r="1" gradientTransform="translate(880 290) scale(130)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/><stop offset="0.55" stop-color="#E9E4FD" stop-opacity="0.8"/><stop offset="1" stop-color="#C6ECE0" stop-opacity="0.4"/>
+    </radialGradient>
+    <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#AAE5D4"/><stop offset="0.5" stop-color="#B6A7F7"/><stop offset="1" stop-color="#FFBF91"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#FAF8F3"/>
+  <rect width="1200" height="630" fill="url(#mint)"/>
+  <rect width="1200" height="630" fill="url(#lilac)"/>
+  <rect width="1200" height="630" fill="url(#peach)"/>
+
+  <!-- Intelligence Seed (simplified) -->
+  <g transform="translate(985 315) scale(0.84) translate(-880 -300)">
+  <circle cx="880" cy="300" r="130" fill="url(#core)"/>
+  <ellipse cx="880" cy="300" rx="210" ry="62" transform="rotate(-18 880 300)" stroke="#8F7EF0" stroke-width="2.2"/>
+  <ellipse cx="880" cy="300" rx="180" ry="52" transform="rotate(48 880 300)" stroke="#5FBFA5" stroke-width="1.8"/>
+  <ellipse cx="880" cy="300" rx="230" ry="40" transform="rotate(-62 880 300)" stroke="#F2A170" stroke-width="1.6" opacity="0.8"/>
+  <g stroke="#5643BD" stroke-opacity="0.3">
+    <path d="M800 240 L860 210 L940 230 L980 300 L930 380 L850 390 L790 330 Z M860 210 L880 300 L940 230 M880 300 L980 300 M880 300 L850 390 M880 300 L790 330 M800 240 L880 300"/>
+  </g>
+  <g>
+    <circle cx="800" cy="240" r="9" fill="#AAE5D4" stroke="#5FBFA5"/>
+    <circle cx="860" cy="210" r="7" fill="#B6A7F7" stroke="#8F7EF0"/>
+    <circle cx="940" cy="230" r="10" fill="#FFBF91" stroke="#F2A170"/>
+    <circle cx="980" cy="300" r="8" fill="#AAE5D4" stroke="#5FBFA5"/>
+    <circle cx="930" cy="380" r="9" fill="#B6A7F7" stroke="#8F7EF0"/>
+    <circle cx="850" cy="390" r="7" fill="#FFBF91" stroke="#F2A170"/>
+    <circle cx="790" cy="330" r="8" fill="#FFFFFF" stroke="#B9B4CF"/>
+    <circle cx="880" cy="300" r="12" fill="#FFFFFF" stroke="#8F7EF0"/>
+  </g>
+  </g>
+
+  <!-- Logo -->
+  <g transform="translate(80 72)">
+    <rect width="56" height="56" rx="17" fill="#18211F"/>
+    <ellipse cx="28" cy="29.4" rx="19.6" ry="10" transform="rotate(-24 28 29.4)" stroke="url(#rim)" stroke-width="2.2"/>
+    <path d="M15.4 18.9h25.2M28 18.9v21" stroke="#FAF8F3" stroke-width="4.4" stroke-linecap="round"/>
+    <circle cx="43.7" cy="21.8" r="3.3" fill="#FFBF91"/>
+    <text x="76" y="38" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="26" font-weight="800" letter-spacing="4" fill="#18211F">TUTOPIA</text>
+  </g>
+
+  <text x="80" y="300" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="74" font-weight="800" letter-spacing="-3" fill="#18211F">Don’t Just Learn AI.</text>
+  <text x="80" y="384" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="74" font-weight="800" letter-spacing="-3" fill="#5643BD">Build What’s Next.</text>
+  <text x="80" y="448" font-family="Inter, 'Segoe UI', Arial, sans-serif" font-size="25" fill="#5D6A67">AI · Machine Learning · Automation · Agents</text>
+  <text x="80" y="560" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="3.5" fill="#5D6A67">THE AI LEARNING CENTER</text>
+</svg>

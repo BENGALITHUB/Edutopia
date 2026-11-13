@@ -1,0 +1,33 @@
+# TUTOPIA — Apache / cPanel config (copied into dist/ by `npm run build`).
+# Safe to delete if your host manages these settings. Not used by S3/CloudFront.
+
+Options -Indexes
+DirectoryIndex index.html
+
+# Force HTTPS (uncomment once an SSL certificate is active in cPanel)
+# RewriteEngine On
+# RewriteCond %{HTTPS} !=on
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+<IfModule mod_mime.c>
+  AddType image/svg+xml .svg
+  AddType font/woff2 .woff2
+  AddType application/javascript .js
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml application/json
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Hashed build assets never change: cache for a year.
+  <FilesMatch "\.(js|css|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  # Always revalidate the HTML so new deploys are picked up immediately.
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>

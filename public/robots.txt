@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# CONFIG: uncomment and set your live URL once a sitemap exists
+# Sitemap: https://www.example.com/sitemap.xml
