@@ -17,6 +17,7 @@ import {
   IndianRupee,
   FileCheck,
   Accessibility,
+  ListTree,
 } from 'lucide-react'
 import { Logo } from '../components/Logo'
 import { Modal } from '../components/Modal'
@@ -36,6 +37,7 @@ const QUICK_LINKS = [
   { id: 'internships', label: 'Internship Program', icon: Briefcase },
   { id: 'certification', label: 'Certification', icon: Award },
   { id: 'contact', label: 'Contact', icon: Mail },
+  { id: 'sitemap.xml', label: 'Sitemap', icon: ListTree, type: 'external' },
 ] as const
 
 const STUDENT_RESOURCES = [
@@ -150,8 +152,8 @@ export function Footer() {
                   return (
                     <li key={item.label}>
                       <a
-                        href={`#${item.id}`}
-                        onClick={(e) => onAnchorClick(e, item.id)}
+                        href={'type' in item && item.type === 'external' ? '/sitemap.xml' : `#${item.id}`}
+                        onClick={'type' in item && item.type === 'external' ? undefined : (e) => onAnchorClick(e, item.id)}
                         className="group flex items-center gap-2.5 text-slate hover:text-emerald transition-colors font-medium py-0.5"
                       >
                         <Icon size={15} className="shrink-0 text-slate/75 group-hover:text-emerald transition-colors" />
@@ -300,6 +302,20 @@ export function Footer() {
               </ul>
             </div>
           </div>
+
+          <section className="mt-8" aria-labelledby="footer-map-heading">
+            <h4 id="footer-map-heading" className="mb-3 font-display text-[0.78rem] font-bold uppercase tracking-[0.14em] text-charcoal">
+              Find Us
+            </h4>
+            <iframe
+              title="Map to Edutopia Kolkata, Jadavpur"
+              src={`https://www.google.com/maps?q=${encodeURIComponent(SITE.address)}&output=embed`}
+              className="h-56 w-full rounded-2xl border border-warm-grey sm:h-64"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
+          </section>
 
           {/* Card Bottom Bar */}
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-between border-t border-warm-grey pt-5 text-xs sm:text-sm text-slate gap-3">
