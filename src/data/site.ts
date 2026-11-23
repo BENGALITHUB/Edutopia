@@ -19,9 +19,7 @@ export const SITE = {
   email: 'contact@bengalithub.com',
 
   hours: 'Monday – Saturday: 10:00 AM – 7:00 PM',
-  mapUrl: 'https://maps.app.goo.gl/W74vDR12CteBYQa88',
-  mapEmbedUrl:
-    'https://www.google.com/maps?q=44,+Shyama+Pally,+Bapuji+Nagar,+Jadavpur,+Kolkata,+West+Bengal+700032&output=embed',
+  mapUrl: 'https://maps.google.com/?q=44,+Shyama+Pally,+Bapuji+Nagar,+Jadavpur,+Kolkata,+West+Bengal+700032',
 
   /** Optional external form endpoint if configured */
   enquiryEndpoint: '',

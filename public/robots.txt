@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.edutopiakolkata.com/sitemap.xml
+# CONFIG: uncomment and set your live URL once a sitemap exists
+# Sitemap: https://www.example.com/sitemap.xml
