@@ -221,6 +221,19 @@ export function Footer() {
                 </a>
               </div>
 
+              {/* Embedded map */}
+              <div className="mt-4 overflow-hidden rounded-xl border border-warm-grey shadow-2xs">
+                <iframe
+                  title="Edutopia Kolkata location on Google Maps"
+                  src={SITE.mapEmbedUrl}
+                  className="block h-[160px] w-full"
+                  style={{ border: 0 }}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                />
+              </div>
+
               {/* Phone / WhatsApp */}
               <div className="mt-3.5 flex items-start gap-2.5 text-[0.9rem] text-slate">
                 <Phone size={16} className="shrink-0 text-emerald mt-1" />
@@ -303,7 +316,18 @@ export function Footer() {
 
           {/* Card Bottom Bar */}
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-between border-t border-warm-grey pt-5 text-xs sm:text-sm text-slate gap-3">
-            <p>© {YEAR} Edutopia. All rights reserved.</p>
+            <div className="flex items-center gap-3">
+              <p>© {YEAR} Edutopia. All rights reserved.</p>
+              <span className="text-tangerine font-light">|</span>
+              <a
+                href="/sitemap.xml"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium hover:text-emerald transition-colors"
+              >
+                Sitemap
+              </a>
+            </div>
 
             <div className="flex items-center gap-3">
               <span className="hidden sm:inline text-tangerine font-light">|</span>
